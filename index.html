@@ -14871,7 +14871,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const allMissions = document.querySelectorAll(".mission-check");
 
   allMissions.forEach(input => {
-    const id = input.closest(".mission-item").dataset.id;
+    const missionItem = input.closest(".mission-item");
+    if (!missionItem) return;
+    const id = missionItem.dataset.id;
+    if (!id) return;
 
     const saved = localStorage.getItem("mission_done_" + id);
     if (saved === "true") {
@@ -14880,6 +14883,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     input.addEventListener("change", () => {
       localStorage.setItem("mission_done_" + id, input.checked);
+      console.log("Saved mission:", id, input.checked);
     });
   });
 });
